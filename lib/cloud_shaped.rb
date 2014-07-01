@@ -1,5 +1,2 @@
+require "cloud_shaped/dsl"
 require "cloud_shaped/version"
-
-module CloudShaped
-  # Your code goes here...
-end
