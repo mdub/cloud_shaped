@@ -6,35 +6,28 @@ describe CloudShaped::TemplateBuilder do
 
   it "builds CloudFormation templates" do
 
-    template_builder_class = Class.new(CloudShaped::TemplateBuilder) do
-
-      def build
-      end
-
+    template = CloudShaped::TemplateBuilder.build do
     end
 
-    empty_template = {
+    expect(template).to eq(
+    {
       "AWSTemplateFormatVersion" => '2010-09-09',
       "Parameters" => {},
       "Resources" => {},
       "Outputs" => {}
     }
-
-    expect(template_builder_class.build).to eq(empty_template)
+    )
 
   end
 
   it "supports resources" do
 
-    template_builder_class = Class.new(CloudShaped::TemplateBuilder) do
-
-      def build
-        resources["fooBar"] = resource("AWS::Foo::Bar", "foo" => "bar")
-      end
-
+    template = CloudShaped::TemplateBuilder.build do |builder|
+      builder.def_resource "fooBar", "AWS::Foo::Bar", "foo" => "bar"
     end
 
-    template_with_elb = {
+    expect(template).to eq(
+    {
       "AWSTemplateFormatVersion" => '2010-09-09',
       "Parameters" => {},
       "Resources" => {
@@ -45,8 +38,7 @@ describe CloudShaped::TemplateBuilder do
       },
       "Outputs" => {}
     }
-
-    expect(template_builder_class.build).to eq(template_with_elb)
+    )
 
   end
 

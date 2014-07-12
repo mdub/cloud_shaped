@@ -7,10 +7,10 @@ module CloudShaped
   #
   class TemplateBuilder
 
-    def self.build(*args)
-      new(*args).tap do |builder|
-        builder.build
-      end.template
+    def self.build
+      builder = new
+      yield builder if block_given?
+      builder.template
     end
 
     def initialize(settings = {})
@@ -29,6 +29,10 @@ module CloudShaped
     end
 
     include CloudShaped::DSL
+
+    def def_resource(name, type, properties)
+      resources[name] = resource(type, properties)
+    end
 
   end
 
