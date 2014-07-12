@@ -4,41 +4,45 @@ require 'cloud_shaped/template_builder'
 
 describe CloudShaped::TemplateBuilder do
 
-  it "builds CloudFormation templates" do
+  subject(:template_builder) { described_class.new }
 
-    template = CloudShaped::TemplateBuilder.build do
+  let(:template) { template_builder.template }
+
+  describe "#template" do
+
+    it "returns a CloudFormation template" do
+
+      expect(template).to eq(
+      {
+        "AWSTemplateFormatVersion" => '2010-09-09',
+        "Parameters" => {},
+        "Resources" => {},
+        "Outputs" => {}
+      }
+      )
+
     end
-
-    expect(template).to eq(
-    {
-      "AWSTemplateFormatVersion" => '2010-09-09',
-      "Parameters" => {},
-      "Resources" => {},
-      "Outputs" => {}
-    }
-    )
 
   end
 
-  it "supports resources" do
+  describe "#def_resource" do
 
-    template = CloudShaped::TemplateBuilder.build do |builder|
-      builder.def_resource "fooBar", "AWS::Foo::Bar", "foo" => "bar"
+    before do
+      template_builder.def_resource "fooBar", "AWS::Foo::Bar", "foo" => "bar"
     end
 
-    expect(template).to eq(
-    {
-      "AWSTemplateFormatVersion" => '2010-09-09',
-      "Parameters" => {},
-      "Resources" => {
+    it "defines a Resource" do
+
+      expect(template["Resources"]).to eq(
+      {
         "fooBar" => {
           "Type" => "AWS::Foo::Bar",
           "Properties" => {"foo" => "bar"}
         }
-      },
-      "Outputs" => {}
-    }
-    )
+      }
+      )
+
+    end
 
   end
 
