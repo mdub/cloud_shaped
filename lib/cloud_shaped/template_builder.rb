@@ -14,17 +14,21 @@ module CloudShaped
     end
 
     def initialize(settings = {})
-
+      @resources = {}
     end
+
+    attr_reader :resources
 
     def template
       {
         "AWSTemplateFormatVersion" => '2010-09-09',
         "Parameters" => {},
-        "Resources" => {},
+        "Resources" => resources,
         "Outputs" => {}
       }
     end
+
+    include CloudShaped::DSL
 
   end
 
