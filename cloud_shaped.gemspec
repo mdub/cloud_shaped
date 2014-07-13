@@ -8,8 +8,8 @@ Gem::Specification.new do |gem|
   gem.name          = "cloud_shaped"
   gem.version       = CloudShaped::VERSION
 
-  gem.summary       = %q{TODO: Write a short summary. Required.}
-  gem.description   = %q{TODO: Write a longer description. Optional.}
+  gem.summary       = %q{DSL for AWS CloudFormation templates.}
+  gem.description   = %q{CloudShaped makes it easier to generate CloudFormation templates, using a Builder-like DSL.}
 
   gem.authors       = ["Mike Williams"]
   gem.email         = ["mdub@dogbiscuit.org"]
