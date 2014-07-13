@@ -26,7 +26,7 @@ describe CloudShaped::TemplateBuilder do
   describe "#def_resource" do
 
     before do
-      template_builder.def_resource "fooBar", "AWS::Foo::Bar", "foo" => "bar"
+      template_builder.def_resource("fooBar", "AWS::Foo::Bar", "foo" => "bar")
     end
 
     it "defines a Resource" do
@@ -35,6 +35,24 @@ describe CloudShaped::TemplateBuilder do
         "fooBar" => {
           "Type" => "AWS::Foo::Bar",
           "Properties" => {"foo" => "bar"}
+        }
+      )
+
+    end
+
+  end
+
+  describe "#def_output" do
+
+    before do
+      template_builder.def_output("myName", "bob")
+    end
+
+    it "defines an Output" do
+
+      expect(template["Outputs"]).to eq(
+        "myName" => {
+          "Value" => "bob"
         }
       )
 

@@ -15,16 +15,18 @@ module CloudShaped
 
     def initialize(settings = {})
       @resources = {}
+      @outputs = {}
     end
 
     attr_reader :resources
+    attr_reader :outputs
 
     def template
       {
         "AWSTemplateFormatVersion" => '2010-09-09',
         "Parameters" => {},
         "Resources" => resources,
-        "Outputs" => {}
+        "Outputs" => outputs
       }
     end
 
@@ -32,6 +34,10 @@ module CloudShaped
 
     def def_resource(name, type, properties)
       resources[name] = resource(type, properties)
+    end
+
+    def def_output(name, value)
+      outputs[name] = output(value)
     end
 
   end

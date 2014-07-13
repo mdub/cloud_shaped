@@ -32,5 +32,13 @@ module CloudShaped
       end
     end
 
+    # Generate an output declaration.
+    #
+    def output(value)
+      {
+        "Value" => value
+      }
+    end
+
   end
 end
