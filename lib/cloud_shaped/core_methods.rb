@@ -6,6 +6,7 @@ module CloudShaped
     #
     # Properties can be passed in the call, or defined using an optional block.
     #
+    # @example
     #     resource("AWS::ElasticLoadBalancing::LoadBalancer", "Scheme" => "internal") do |elb|
     #       elb["SecurityGroups"] = [ref("appSecurityGroup")]
     #     end
@@ -23,12 +24,18 @@ module CloudShaped
       }
     end
 
-    # Generate a Parameter declaration.
+    # Returns a CloudFormation Parameter declaration.
     #
-    def parameter(type = "String")
-      {
-        "Type" => type
+    # @option options [String] :type ("String") the resource type
+    # @option options [String] :description parameter description
+    # @option options [String] :default a default value
+    #
+    def parameter(options = {})
+      defaults = {
+        "Type" => "String"
       }
+      overrides = Hash[options.map { |k,v| [k.to_s.capitalize, v] }]
+      defaults.merge(overrides)
     end
 
     # Generate an Output declaration.

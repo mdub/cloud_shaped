@@ -40,11 +40,39 @@ describe CloudShaped::CoreMethods do
 
   describe "#parameter" do
 
+    it "generates a Parameter" do
+      expect(parameter(:type => "Numeric")).to eq(
+        "Type" => "Numeric"
+      )
+    end
+
     context "with no type" do
 
-      it "generates a String Parameter" do
+      it "defaults to 'String'" do
         expect(parameter()).to eq(
           "Type" => "String"
+        )
+      end
+
+    end
+
+    context "with a :default" do
+
+      it "includes a Default" do
+        expect(parameter(:default => "abc")).to eq(
+          "Type" => "String",
+          "Default" => "abc"
+        )
+      end
+
+    end
+
+    context "with a :description" do
+
+      it "includes a Description" do
+        expect(parameter(:description => "size in Gb")).to eq(
+          "Type" => "String",
+          "Description" => "size in Gb"
         )
       end
 
