@@ -41,7 +41,12 @@ module CloudShaped
       defaults.merge(options.camelate_keys)
     end
 
-    # Generate an Output declaration.
+    # Returns an Output declaration.
+    #
+    # @param value the output value (usually a reference to a resource)
+    #
+    # @example
+    #   output(ref("loadBalancer"))
     #
     def output(value)
       {
@@ -49,7 +54,10 @@ module CloudShaped
       }
     end
 
-    # Generate a tag.
+    # Returns a Tag.
+    #
+    # @param name [String] tag name
+    # @param value tag value
     #
     def tag(name, value, extra_properties = {})
       {
@@ -58,9 +66,12 @@ module CloudShaped
       }.merge(extra_properties)
     end
 
-    # Refer to another resource.
+    # Returns a resource reference.
     #
-    # If `attribute_name` is specified, we use "Fn::GetAtt"; otherwise, we use "Ref".
+    # If attribute_name is specified, we use "Fn::GetAtt"; otherwise, we use "Ref".
+    #
+    # @param resource_name [String] name of the resource
+    # @param attribute_name [String] atttribute of the resource to refer to
     #
     def ref(resource_name, attribute_name = nil)
       if attribute_name
