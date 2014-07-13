@@ -24,6 +24,30 @@ describe CloudShaped::CoreMethods do
 
   end
 
+  describe "#parameter" do
+
+    context "with no type" do
+
+      it "generates a String Parameter" do
+        expect(parameter()).to eq(
+          "Type" => "String"
+        )
+      end
+
+    end
+
+  end
+
+  describe "#output" do
+
+    it "generates an Output" do
+      expect(output("blah")).to eq(
+        "Value" => "blah"
+      )
+    end
+
+  end
+
   describe "#tag" do
 
     it "generates a tag Hash" do
@@ -63,30 +87,6 @@ describe CloudShaped::CoreMethods do
         )
       end
 
-    end
-
-  end
-
-  describe "#parameter" do
-
-    context "with no type" do
-
-      it "generates a String Parameter" do
-        expect(parameter()).to eq(
-          "Type" => "String"
-        )
-      end
-
-    end
-
-  end
-
-  describe "#output" do
-
-    it "generates an Output" do
-      expect(output("blah")).to eq(
-        "Value" => "blah"
-      )
     end
 
   end

@@ -11,6 +11,22 @@ module CloudShaped
       }
     end
 
+    # Generate a Parameter declaration.
+    #
+    def parameter(type = "String")
+      {
+        "Type" => type
+      }
+    end
+
+    # Generate an Output declaration.
+    #
+    def output(value)
+      {
+        "Value" => value
+      }
+    end
+
     # Generate a tag.
     #
     def tag(name, value, extra_properties = {})
@@ -30,22 +46,6 @@ module CloudShaped
       else
         { "Ref" => resource_name }
       end
-    end
-
-    # Generate a Parameter declaration.
-    #
-    def parameter(type = "String")
-      {
-        "Type" => type
-      }
-    end
-
-    # Generate an Output declaration.
-    #
-    def output(value)
-      {
-        "Value" => value
-      }
     end
 
   end
