@@ -8,7 +8,7 @@ describe CloudShaped::CoreMethods do
 
   describe "#resource" do
 
-    it "provides a bit of sugar" do
+    it "generates a Resource" do
       expect(resource("AWS::Thing", "X" => 1, "Y" => 2)).to eq(
         "Type" => "AWS::Thing",
         "Properties" => { "X" => 1, "Y" => 2 }
@@ -20,6 +20,20 @@ describe CloudShaped::CoreMethods do
         "Type" => "AWS::Thing",
         "Properties" => { "X" => 1 }
       )
+    end
+
+    context "with a block" do
+
+      it "allows properties to be added" do
+        result = resource("AWS::Thing", "MinSize" => 1) do |thing|
+          thing["MaxSize"] = 3
+        end
+        expect(result).to eq(
+          "Type" => "AWS::Thing",
+          "Properties" => { "MinSize" => 1, "MaxSize" => 3 }
+        )
+      end
+
     end
 
   end

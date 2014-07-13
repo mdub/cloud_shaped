@@ -2,12 +2,24 @@ module CloudShaped
 
   module CoreMethods
 
-    # Generate a Resource declaration.
+    # Returns a CloudFormation Resource declaration.
     #
-    def resource(type, properties)
+    # Properties can be passed in the call, or defined using an optional block.
+    #
+    #     resource("AWS::ElasticLoadBalancing::LoadBalancer", "Scheme" => "internal") do |elb|
+    #       elb["SecurityGroups"] = [ref("appSecurityGroup")]
+    #     end
+    #
+    # @param type [String] the resource type
+    # @param properties [Hash] resource properties
+    #
+    def resource(type, properties = {})
+      properties = properties.dup
+      yield properties if block_given?
+      properties.select! { |k,v| v != nil }
       {
         "Type" => type,
-        "Properties" => properties.select { |k,v| v != nil }
+        "Properties" => properties
       }
     end
 
