@@ -42,6 +42,24 @@ describe CloudShaped::TemplateBuilder do
 
   end
 
+  describe "#def_parameter" do
+
+    before do
+      template_builder.def_parameter("size")
+    end
+
+    it "defines a Parameter" do
+
+      expect(template["Parameters"]).to eq(
+        "size" => {
+          "Type" => "String"
+        }
+      )
+
+    end
+
+  end
+
   describe "#def_output" do
 
     before do

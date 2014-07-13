@@ -2,7 +2,7 @@ module CloudShaped
 
   module CoreMethods
 
-    # Generate a resource declaration.
+    # Generate a Resource declaration.
     #
     def resource(type, properties)
       {
@@ -32,7 +32,15 @@ module CloudShaped
       end
     end
 
-    # Generate an output declaration.
+    # Generate a Parameter declaration.
+    #
+    def parameter(type = "String")
+      {
+        "Type" => type
+      }
+    end
+
+    # Generate an Output declaration.
     #
     def output(value)
       {
