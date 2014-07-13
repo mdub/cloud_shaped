@@ -16,7 +16,7 @@ Add this line to your application's Gemfile:
 
     require 'cloud_shaped'
 
-    template = CloudShaped.build_template do |t|
+    template = CloudShaped.template do |t|
       t.def_parameter "appName"
       t.def_resource "app", "AWS::Appity:AppApp" do |app|
         app["Name"] = t.ref("appName")

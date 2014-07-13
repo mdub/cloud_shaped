@@ -4,7 +4,7 @@ require "cloud_shaped/version"
 
 module CloudShaped
 
-  def self.build_template(&block)
+  def self.template(&block)
     TemplateBuilder.new.tap do |builder|
       if block.arity.zero?
         builder.instance_eval(&block)

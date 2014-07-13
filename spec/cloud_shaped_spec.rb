@@ -4,12 +4,12 @@ require "cloud_shaped"
 
 describe CloudShaped do
 
-  describe ".build_template" do
+  describe ".template" do
 
     context "with a no-arg block" do
 
       let!(:template) do
-        CloudShaped.build_template do
+        CloudShaped.template do
           def_parameter "appName"
           def_resource "app", "AWS::Appity:AppApp" do |app|
             app["Name"] = ref("appName")
@@ -49,7 +49,7 @@ describe CloudShaped do
       let(:app_name_parameter) { "appName" }
 
       let!(:template) do
-        CloudShaped.build_template do |t|
+        CloudShaped.template do |t|
           t.def_parameter app_name_parameter
           t.def_resource "app", "AWS::Appity:AppApp" do |app|
             app["Name"] = t.ref(app_name_parameter)
