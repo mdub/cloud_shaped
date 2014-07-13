@@ -1,3 +1,7 @@
+require "cloud_shaped/camelate"
+
+using CloudShaped::Camelate
+
 module CloudShaped
 
   module CoreMethods
@@ -15,7 +19,7 @@ module CloudShaped
     # @param properties [Hash] resource properties
     #
     def resource(type, properties = {})
-      properties = properties.dup
+      properties = properties.camelate_keys
       yield properties if block_given?
       properties.select! { |k,v| v != nil }
       {
@@ -34,8 +38,7 @@ module CloudShaped
       defaults = {
         "Type" => "String"
       }
-      overrides = Hash[options.map { |k,v| [k.to_s.capitalize, v] }]
-      defaults.merge(overrides)
+      defaults.merge(options.camelate_keys)
     end
 
     # Generate an Output declaration.

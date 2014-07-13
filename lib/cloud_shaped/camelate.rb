@@ -18,6 +18,14 @@ module CloudShaped
 
     end
 
+    refine Hash do
+
+      def camelate_keys
+        Hash[map { |key, value| [key.camelate, value] }]
+      end
+
+    end
+
   end
 
 end
