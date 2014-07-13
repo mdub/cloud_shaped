@@ -7,12 +7,6 @@ module CloudShaped
   #
   class TemplateBuilder
 
-    def self.build
-      builder = new
-      yield builder if block_given?
-      builder.template
-    end
-
     def initialize(settings = {})
       @parameters = {}
       @resources = {}
@@ -38,8 +32,8 @@ module CloudShaped
       parameters[name] = parameter(*args)
     end
 
-    def def_resource(name, type, *args)
-      resources[name] = resource(type, *args)
+    def def_resource(name, type, *args, &block)
+      resources[name] = resource(type, *args, &block)
     end
 
     def def_output(name, *args)
