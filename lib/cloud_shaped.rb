@@ -6,7 +6,11 @@ module CloudShaped
 
   def self.build_template(&block)
     TemplateBuilder.new.tap do |builder|
-      builder.instance_eval(&block)
+      if block.arity.zero?
+        builder.instance_eval(&block)
+      else
+        yield builder
+      end
     end.template
   end
 
