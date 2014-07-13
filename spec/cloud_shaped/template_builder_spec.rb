@@ -13,12 +13,10 @@ describe CloudShaped::TemplateBuilder do
     it "returns a CloudFormation template" do
 
       expect(template).to eq(
-      {
         "AWSTemplateFormatVersion" => '2010-09-09',
         "Parameters" => {},
         "Resources" => {},
         "Outputs" => {}
-      }
       )
 
     end
@@ -34,12 +32,10 @@ describe CloudShaped::TemplateBuilder do
     it "defines a Resource" do
 
       expect(template["Resources"]).to eq(
-      {
         "fooBar" => {
           "Type" => "AWS::Foo::Bar",
           "Properties" => {"foo" => "bar"}
         }
-      }
       )
 
     end
