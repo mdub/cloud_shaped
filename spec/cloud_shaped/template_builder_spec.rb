@@ -25,11 +25,9 @@ describe CloudShaped::TemplateBuilder do
 
   describe "#def_resource" do
 
-    before do
-      template_builder.def_resource("fooBar", "AWS::Foo::Bar", "foo" => "bar")
-    end
-
     it "defines a Resource" do
+
+      template_builder.def_resource("fooBar", "AWS::Foo::Bar", "foo" => "bar")
 
       expect(template["Resources"]).to eq(
         "fooBar" => {
@@ -37,6 +35,29 @@ describe CloudShaped::TemplateBuilder do
           "Properties" => {"foo" => "bar"}
         }
       )
+
+    end
+
+    context "with a symbol as the second argument" do
+
+      before do
+        def template_builder.fnord(size)
+          resource "AWS::Fnord::Fnord", "Size" => size
+        end
+      end
+
+      it "calls the method named by the symbol to define the resource" do
+
+        template_builder.def_resource("fooBar", :fnord, "3")
+
+        expect(template["Resources"]).to eq(
+          "fooBar" => {
+            "Type" => "AWS::Fnord::Fnord",
+            "Properties" => {"Size" => "3"}
+          }
+        )
+
+      end
 
     end
 

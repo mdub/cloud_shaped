@@ -33,7 +33,11 @@ module CloudShaped
     end
 
     def def_resource(name, type, *args, &block)
-      resources[name] = resource(type, *args, &block)
+      resources[name] = if type.is_a?(Symbol)
+        send(type, *args, &block)
+      else
+        resource(type, *args, &block)
+      end
     end
 
     def def_output(name, *args)
