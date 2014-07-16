@@ -15,14 +15,43 @@ Add this line to your application's Gemfile:
 ## Example
 
     require 'cloud_shaped'
+    require 'json'
 
-    template = CloudShaped.template do |t|
-      t.def_parameter "appName"
-      t.def_resource "app", "AWS::Appity:AppApp" do |app|
-        app["Name"] = t.ref("appName")
-      end
-      t.def_output "appAddress", t.ref("app", "address")
+    template = CloudShaped.template do
+      def_parameter "appName"
+      def_resource "app", "AWS::Appity:AppApp", "Name" => ref("appName")
+      def_output "appAddress", ref("app", "address")
     end
+
+    puts JSON.pretty_generate(template)
+
+outputs
+
+    {
+      "AWSTemplateFormatVersion": "2010-09-09",
+      "Parameters": {
+        "appName": {
+          "Type": "String"
+        }
+      },
+      "Resources": {
+        "app": {
+          "Type": "AWS::Appity:AppApp",
+          "Properties": {
+            "Name": {
+              "Ref": "appName"
+            }
+          }
+        }
+      },
+      "Outputs": {
+        "appAddress": {
+          "Value": {
+            "Fn::GetAtt": ["app", "address"]
+          }
+        }
+      }
+    }
 
 ## Contributing
 
