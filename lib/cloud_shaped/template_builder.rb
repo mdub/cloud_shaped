@@ -44,7 +44,7 @@ module CloudShaped
     #
     # @param name [String] the resource name
     # @param type [String, Symbol] the resource type
-    # @param properties [Hash] resource properties
+    # @param args [Hash] resource properties
     #
     def def_resource(name, type, *args, &block)
       resources[name] = if type.is_a?(Symbol)
@@ -62,8 +62,8 @@ module CloudShaped
     # @example
     #   def_output "loadBalancerName", ref("loadBalancer")
     #
-    def def_output(name, *args)
-      outputs[name] = output(*args)
+    def def_output(name, value)
+      outputs[name] = output(value)
     end
 
     protected

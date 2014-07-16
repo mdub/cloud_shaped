@@ -109,6 +109,25 @@ describe CloudShaped::CoreMethods do
 
   end
 
+  describe "#tags" do
+
+    it "generates a list of tags" do
+      expect(tags("first" => "foo", "last" => "bar")).to eq(
+        [
+          {
+            "Key" => "first",
+            "Value" => "foo"
+          },
+          {
+            "Key" => "last",
+            "Value" => "bar"
+          }
+        ]
+      )
+    end
+
+  end
+
   describe "#ref" do
 
     context "with a logical resource name" do

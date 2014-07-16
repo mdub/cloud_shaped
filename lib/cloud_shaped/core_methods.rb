@@ -56,14 +56,29 @@ module CloudShaped
 
     # Returns a Tag.
     #
-    # @param name [String] tag name
+    # @param key [String] tag name
     # @param value tag value
+    # @return [Hash] a Tag structure
     #
-    def tag(name, value, extra_properties = {})
+    # @example
+    #   tag("name", "bob") #=> { "Key" => "name", "Value" => "bob "}
+    #
+    def tag(key, value, extra_properties = {})
       {
-        "Key" => name,
+        "Key" => key,
         "Value" => value
       }.merge(extra_properties)
+    end
+
+    # Returns a list of Tags.
+    #
+    # @param tag_map [Hash] mapping of Tag keys to values
+    #
+    # @example
+    #   tags("application" => "atlas", "version" => "1.2.3")
+    #
+    def tags(tag_map, extra_properties = {})
+      tag_map.map { |k,v| tag(k,v, extra_properties) }
     end
 
     # Returns a resource reference.
