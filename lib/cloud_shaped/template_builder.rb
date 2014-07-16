@@ -2,8 +2,7 @@ require 'cloud_shaped/dsl'
 
 module CloudShaped
 
-  # A TemplateBuilder is an object that can generate a CloudFormation template,
-  # in the form of Ruby data.
+  # A {http://en.wikipedia.org/wiki/Builder_pattern builder} for CloudFormation templates.
   #
   class TemplateBuilder
 
@@ -13,10 +12,8 @@ module CloudShaped
       @outputs = {}
     end
 
-    attr_reader :parameters
-    attr_reader :resources
-    attr_reader :outputs
-
+    # @return [Hash] a CloudFormation template as Ruby data
+    #
     def template
       {
         "AWSTemplateFormatVersion" => '2010-09-09',
@@ -28,10 +25,27 @@ module CloudShaped
 
     include CloudShaped::DSL
 
-    def def_parameter(name, *args)
-      parameters[name] = parameter(*args)
+    # Declares a Parameter.
+    #
+    # @param name [String] the parameter name
+    # @option options [String] :type ("String") the parameter type
+    # @option options [String] :description parameter description
+    # @option options [String] :default a default value
+    #
+    # @example
+    #   def_parameter "appName"
+    #   def_parameter "minInstances", :type => "Number"
+    #
+    def def_parameter(name, options = {})
+      parameters[name] = parameter(options)
     end
 
+    # Declares a Resource.
+    #
+    # @param name [String] the resource name
+    # @param type [String, Symbol] the resource type
+    # @param properties [Hash] resource properties
+    #
     def def_resource(name, type, *args, &block)
       resources[name] = if type.is_a?(Symbol)
         send(type, *args, &block)
@@ -40,9 +54,23 @@ module CloudShaped
       end
     end
 
+    # Declares an Output.
+    #
+    # @param name [String] the output name
+    # @param value the output value (usually a reference to a resource)
+    #
+    # @example
+    #   def_output "loadBalancerName", ref("loadBalancer")
+    #
     def def_output(name, *args)
       outputs[name] = output(*args)
     end
+
+    protected
+
+    attr_reader :parameters
+    attr_reader :resources
+    attr_reader :outputs
 
   end
 

@@ -30,7 +30,7 @@ module CloudShaped
 
     # Returns a CloudFormation Parameter declaration.
     #
-    # @option options [String] :type ("String") the resource type
+    # @option options [String] :type ("String") the parameter type
     # @option options [String] :description parameter description
     # @option options [String] :default a default value
     #

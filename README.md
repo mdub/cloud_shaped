@@ -53,6 +53,11 @@ outputs
       }
     }
 
+For more info on the DSL, see:
+
+* {CloudShaped.template}
+* {CloudShaped::TemplateBuilder}
+
 ## Contributing
 
 It's [on GitHub][cloud_shaped]. Fork it.
