@@ -21,6 +21,14 @@ describe CloudShaped::CoreMethods do
         "Properties" => { "X" => 1 }
       )
     end
+    
+    it "honours the DependsOn tag" do
+      expect(resource("AWS::Thing", 'dependson' => 'some_other_thing', "X" => 1, "Y" => nil)).to eq(
+        "Type" => "AWS::Thing",
+        "DependsOn" => "some_other_thing",
+        "Properties" => { "X" => 1 }
+      )
+    end
 
     context "with a block" do
 

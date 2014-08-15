@@ -18,15 +18,18 @@ module CloudShaped
     # @param type [String] the resource type
     # @param properties [Hash] resource properties
     #
-    def resource(type, properties = {})
+    def resource(type, properties={})
       properties = properties.camelate_keys
       yield properties if block_given?
       properties.select! { |k,v| v != nil }
+      dependson = properties.delete('dependson')
       {
         "Type" => type,
+        "DependsOn" => dependson,
         "Properties" => properties
-      }
+      }.reject { |_,v| v.nil? }
     end
+    
 
     # Returns a CloudFormation Parameter declaration.
     #
