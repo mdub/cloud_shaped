@@ -53,6 +53,34 @@ outputs
       }
     }
 
+## Declaring resources
+
+Declare CloudFormation resources using the `def_resource` method.  It takes a resource name, type, and properties:
+
+    t.def_resource "adminEmail", "AWS::SNS::Topic",
+      "Subscription" => [{"Protocol" => "email", "Endpoint" => "mdub@example.com"}]
+
+If you prefer, you can set properties using a block:
+
+    t.def_resource "adminEmail", "AWS::SNS::Topic" do |topic|
+      topic["Subscription"] = [
+        { "Protocol" => "email", "Endpoint" => "mdub@example.com" }
+      ]
+    end
+
+### Resource macros
+
+Typically, the "type" argument will be a string specifying a CloudFormation resource type.  However, it's also possible to provide a Ruby symbol, in which case `def_resource` will call the named method, passing remaining arguments.  This allows common resource patterns to be abstracted as methods:
+
+    def t.email_topic(address)
+      resource "AWS::SNS::Topic",
+        "Subscription" => [{ "Protocol" => "email", "Endpoint" => address }]
+    end
+
+    t.def_resource "adminEmail", :email_topic, "mdub@example.com"
+
+## Full documentation
+
 For more info on the DSL, see:
 
 * {CloudShaped.template}
