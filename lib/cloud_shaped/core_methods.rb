@@ -8,7 +8,7 @@ module CloudShaped
 
     # Returns a CloudFormation Resource declaration.
     #
-    # Properties can be passed in the call, or defined using an optional block.
+    # Properties and additional resource attributes can be passed in the call, or defined using an optional block.
     #
     # @example
     #     resource("AWS::ElasticLoadBalancing::LoadBalancer", "Scheme" => "internal") do |elb|
@@ -17,17 +17,17 @@ module CloudShaped
     #
     # @param type [String] the resource type
     # @param properties [Hash] resource properties
+    # @param attributes [Hash] additional resource attributes
     #
-    def resource(type, properties={})
+    def resource(type, properties = {}, attributes = {})
       properties = properties.camelate_keys
-      yield properties if block_given?
+      yield properties, attributes if block_given?
       properties.select! { |k,v| v != nil }
-      dependson = properties.delete('dependson')
-      {
+      attributes.merge(
         "Type" => type,
         "DependsOn" => dependson,
         "Properties" => properties
-      }.reject { |_,v| v.nil? }
+      )
     end
     
 

@@ -32,13 +32,50 @@ describe CloudShaped::CoreMethods do
 
     context "with a block" do
 
-      it "allows properties to be added" do
-        result = resource("AWS::Thing", "MinSize" => 1) do |thing|
+      let(:result) do
+        resource("AWS::Thing", "MinSize" => 1) do |thing|
           thing["MaxSize"] = 3
         end
+      end
+
+      it "allows properties to be added" do
         expect(result).to eq(
           "Type" => "AWS::Thing",
           "Properties" => { "MinSize" => 1, "MaxSize" => 3 }
+        )
+      end
+
+    end
+
+    context "with an attributes hash" do
+
+      let(:result) do
+        resource("AWS::Thing", {}, "DependsOn" => "baz")
+      end
+
+      it "sets additional resource attributes" do
+        expect(result).to eq(
+          "Type" => "AWS::Thing",
+          "Properties" => {},
+          "DependsOn" => "baz"
+        )
+      end
+
+    end
+
+    context "with a block that sets attributes" do
+
+      let(:result) do
+        resource("AWS::Thing") do |props, attrs|
+          attrs["DeletionPolicy"] = "Retain"
+        end
+      end
+
+      it "sets additional resource attributes" do
+        expect(result).to eq(
+          "Type" => "AWS::Thing",
+          "Properties" => {},
+          "DeletionPolicy" => "Retain"
         )
       end
 
