@@ -1,12 +1,10 @@
 require 'cloud_shaped/dsl'
 
 module CloudShaped
-
-  # A {http://en.wikipedia.org/wiki/Builder_pattern builder} for CloudFormation templates.
-  #
+  # A {http://en.wikipedia.org/wiki/Builder_pattern builder} for CloudFormation
+  # templates.
   class TemplateBuilder
-
-    def initialize(settings = {})
+    def initialize(_settings = {})
       @parameters = {}
       @resources = {}
       @outputs = {}
@@ -16,10 +14,10 @@ module CloudShaped
     #
     def template
       {
-        "AWSTemplateFormatVersion" => '2010-09-09',
-        "Parameters" => parameters,
-        "Resources" => resources,
-        "Outputs" => outputs
+        'AWSTemplateFormatVersion' => '2010-09-09',
+        'Parameters' => parameters,
+        'Resources' => resources,
+        'Outputs' => outputs
       }
     end
 
@@ -48,10 +46,10 @@ module CloudShaped
     #
     def def_resource(name, type, *args, &block)
       resources[name] = if type.is_a?(Symbol)
-        send(type, *args, &block)
-      else
-        resource(type, *args, &block)
-      end
+                          send(type, *args, &block)
+                        else
+                          resource(type, *args, &block)
+                        end
       resources.reject! { |_k, v| v.nil? }
     end
 
@@ -72,7 +70,5 @@ module CloudShaped
     attr_reader :parameters
     attr_reader :resources
     attr_reader :outputs
-
   end
-
 end
