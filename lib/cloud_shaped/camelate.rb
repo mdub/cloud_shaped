@@ -1,7 +1,6 @@
 module CloudShaped
-
+  # Refinements on various classes to add camelate methods
   module Camelate
-
     refine Symbol do
 
       def camelate

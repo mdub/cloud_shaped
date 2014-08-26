@@ -1,9 +1,9 @@
-require "cloud_shaped/camelate"
+require 'cloud_shaped/camelate'
 
 using CloudShaped::Camelate
 
 module CloudShaped
-
+  # Returns a CloudFormation Resource declaration.
   module CoreMethods
 
     # Returns a CloudFormation Resource declaration.
@@ -11,7 +11,7 @@ module CloudShaped
     # Properties and additional resource attributes can be passed in the call, or defined using an optional block.
     #
     # @example
-    #     resource("AWS::ElasticLoadBalancing::LoadBalancer", "Scheme" => "internal") do |elb|
+    #     resource("AWS::EC2::Instance", "Scheme" => "internal") do |elb|
     #       elb["SecurityGroups"] = [ref("appSecurityGroup")]
     #     end
     #
@@ -25,6 +25,7 @@ module CloudShaped
       properties.select! { |k,v| v != nil }
       attributes.merge(
         "Type" => type,
+        "DependsOn" => dependson,
         "Properties" => properties
       )
     end
@@ -37,7 +38,7 @@ module CloudShaped
     #
     def parameter(options = {})
       defaults = {
-        "Type" => "String"
+        'Type' => 'String'
       }
       defaults.merge(options.camelate_keys)
     end
@@ -51,7 +52,7 @@ module CloudShaped
     #
     def output(value)
       {
-        "Value" => value
+        'Value' => value
       }
     end
 
@@ -66,8 +67,8 @@ module CloudShaped
     #
     def tag(key, value, extra_properties = {})
       {
-        "Key" => key,
-        "Value" => value
+        'Key' => key,
+        'Value' => value
       }.merge(extra_properties)
     end
 
@@ -79,23 +80,22 @@ module CloudShaped
     #   tags("application" => "atlas", "version" => "1.2.3")
     #
     def tags(tag_map, extra_properties = {})
-      tag_map.map { |k,v| tag(k,v, extra_properties) }
+      tag_map.map { |k, v| tag(k, v, extra_properties) }
     end
 
     # Returns a resource reference.
     #
-    # If attribute_name is specified, we use "Fn::GetAtt"; otherwise, we use "Ref".
+    # If attribute_name is specified, we use "Fn::GetAtt"; otherwise, use "Ref".
     #
     # @param resource_name [String] name of the resource
     # @param attribute_name [String] atttribute of the resource to refer to
     #
     def ref(resource_name, attribute_name = nil)
       if attribute_name
-        { "Fn::GetAtt" => [resource_name, attribute_name] }
+        { 'Fn::GetAtt' => [resource_name, attribute_name] }
       else
-        { "Ref" => resource_name }
+        { 'Ref' => resource_name }
       end
     end
-
   end
 end
