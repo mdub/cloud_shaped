@@ -61,6 +61,24 @@ describe CloudShaped::TemplateBuilder do
 
     end
 
+    context "when resource macro-method returns nil" do
+
+      before do
+        def template_builder.nada(*args)
+          nil
+        end
+      end
+
+      it "does not define a resource" do
+
+        template_builder.def_resource("fooBar", :nada)
+
+        expect(template["Resources"]).to be_empty
+
+      end
+
+    end
+
   end
 
   describe "#def_parameter" do

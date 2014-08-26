@@ -47,11 +47,12 @@ module CloudShaped
     # @param args [Hash] resource properties
     #
     def def_resource(name, type, *args, &block)
-      resources[name] = if type.is_a?(Symbol)
+      definition = if type.is_a?(Symbol)
         send(type, *args, &block)
       else
         resource(type, *args, &block)
       end
+      resources[name] = definition if definition
     end
 
     # Declares an Output.
