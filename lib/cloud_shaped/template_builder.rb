@@ -52,6 +52,7 @@ module CloudShaped
       else
         resource(type, *args, &block)
       end
+      resources.reject! { |_k, v| v.nil? }
     end
 
     # Declares an Output.
