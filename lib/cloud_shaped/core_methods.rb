@@ -1,7 +1,5 @@
 require "cloud_shaped/camelate"
 
-using CloudShaped::Camelate
-
 module CloudShaped
 
   module CoreMethods

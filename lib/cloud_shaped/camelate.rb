@@ -1,31 +1,23 @@
-module CloudShaped
+class Symbol
 
-  module Camelate
+  def camelate
+    to_s.split('_').map(&:capitalize).join
+  end
 
-    refine Symbol do
+end
 
-      def camelate
-        to_s.split('_').map(&:capitalize).join
-      end
+class String
 
-    end
+  def camelate
+    self
+  end
 
-    refine String do
+end
 
-      def camelate
-        self
-      end
+class Hash
 
-    end
-
-    refine Hash do
-
-      def camelate_keys
-        Hash[map { |key, value| [key.camelate, value] }]
-      end
-
-    end
-
+  def camelate_keys
+    Hash[map { |key, value| [key.camelate, value] }]
   end
 
 end

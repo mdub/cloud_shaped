@@ -2,8 +2,6 @@ require 'spec_helper'
 
 require 'cloud_shaped/camelate'
 
-using CloudShaped::Camelate
-
 describe String, "#camelate" do
   it "is a no-op" do
     expect("foobar".camelate).to eq("foobar")
