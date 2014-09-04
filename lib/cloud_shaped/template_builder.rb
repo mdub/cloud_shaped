@@ -50,7 +50,8 @@ module CloudShaped
     # @example
     #   def_mapping "regionMap", "us-east-1" => { "32" => "ami-6411e20d" }
     #
-    def def_mapping(name, mapping)
+    def def_mapping(name, mapping = {})
+      yield mapping if block_given?
       mappings[name] = mapping
     end
 

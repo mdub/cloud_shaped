@@ -139,6 +139,25 @@ describe CloudShaped::TemplateBuilder do
 
     end
 
+    context "with a block" do
+
+      before do
+        template_builder.def_mapping("RegionMap") do |map|
+          map["ap-southeast-2"] = "foo"
+          map["us-east-1"] = "bar"
+        end
+      end
+
+      it "defines a Mapping" do
+        expected_mapping = {
+          "ap-southeast-2" => "foo",
+          "us-east-1" => "bar"
+        }
+        expect(template["Mappings"]).to eq("RegionMap" => expected_mapping)
+      end
+
+    end
+
   end
 
 end
