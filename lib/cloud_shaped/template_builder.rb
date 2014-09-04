@@ -15,12 +15,12 @@ module CloudShaped
     # @return [Hash] a CloudFormation template as Ruby data
     #
     def template
-      {
-        "AWSTemplateFormatVersion" => '2010-09-09',
-        "Parameters" => parameters,
-        "Resources" => resources,
-        "Outputs" => outputs
-      }
+      {}.tap do |template|
+        template["AWSTemplateFormatVersion"] = '2010-09-09'
+        template["Parameters"] = parameters unless parameters.empty?
+        template["Resources"] = resources
+        template["Outputs"] = outputs unless outputs.empty?
+      end
     end
 
     include CloudShaped::DSL

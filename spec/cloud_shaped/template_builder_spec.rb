@@ -14,9 +14,7 @@ describe CloudShaped::TemplateBuilder do
 
       expect(template).to eq(
         "AWSTemplateFormatVersion" => '2010-09-09',
-        "Parameters" => {},
-        "Resources" => {},
-        "Outputs" => {}
+        "Resources" => {}
       )
 
     end
