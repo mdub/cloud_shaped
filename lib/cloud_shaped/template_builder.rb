@@ -8,6 +8,7 @@ module CloudShaped
 
     def initialize(settings = {})
       @parameters = {}
+      @mappings = {}
       @resources = {}
       @outputs = {}
     end
@@ -18,6 +19,7 @@ module CloudShaped
       {}.tap do |template|
         template["AWSTemplateFormatVersion"] = '2010-09-09'
         template["Parameters"] = parameters unless parameters.empty?
+        template["Mappings"] = mappings unless mappings.empty?
         template["Resources"] = resources
         template["Outputs"] = outputs unless outputs.empty?
       end
@@ -38,6 +40,18 @@ module CloudShaped
     #
     def def_parameter(name, options = {})
       parameters[name] = parameter(options)
+    end
+
+    # Declares a Mappping.
+    #
+    # @param name [String] the mapping name
+    # @param mapping [Hash] the mapping
+    #
+    # @example
+    #   def_mapping "regionMap", "us-east-1" => { "32" => "ami-6411e20d" }
+    #
+    def def_mapping(name, mapping)
+      mappings[name] = mapping
     end
 
     # Declares a Resource.
@@ -70,6 +84,7 @@ module CloudShaped
     protected
 
     attr_reader :parameters
+    attr_reader :mappings
     attr_reader :resources
     attr_reader :outputs
 

@@ -115,4 +115,30 @@ describe CloudShaped::TemplateBuilder do
 
   end
 
+  describe "#def_mapping" do
+
+    context "with a Hash" do
+
+      let(:region_map) do
+        {
+          "us-east-1"      => { "32" => "ami-6411e20d"},
+          "us-west-1"      => { "32" => "ami-c9c7978c"},
+          "eu-west-1"      => { "32" => "ami-37c2f643"},
+          "ap-southeast-1" => { "32" => "ami-66f28c34"},
+          "ap-northeast-1" => { "32" => "ami-9c03a89d"}
+        }
+      end
+
+      before do
+        template_builder.def_mapping("RegionMap", region_map)
+      end
+
+      it "defines a Mapping" do
+        expect(template["Mappings"]).to eq("RegionMap" => region_map)
+      end
+
+    end
+
+  end
+
 end
