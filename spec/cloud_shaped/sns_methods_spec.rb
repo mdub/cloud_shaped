@@ -22,6 +22,18 @@ describe CloudShaped::SnsMethods do
         )
       end
 
+      it "generates an email resource after stripping mailto:" do
+        output = sns_topic("mailto:root@example.com")
+        expect(output).to eq(
+          "Type" => "AWS::SNS::Topic",
+          "Properties" => {
+            "Subscription" => [
+              { "Protocol" => "email", "Endpoint" => "root@example.com" }
+            ]
+          }
+        )
+      end
+
     end
 
     context "with an HTTP URL" do
@@ -58,3 +70,4 @@ describe CloudShaped::SnsMethods do
 
   end
 end
+
