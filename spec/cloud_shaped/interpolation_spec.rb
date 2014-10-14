@@ -48,6 +48,26 @@ describe CloudShaped::Interpolation do
 
     end
 
+    context "with a built-in CloudFormation resource surrounded by other stuff" do
+
+      let(:input) { "prefix-{{AWS::StackName}}-suffix" }
+
+      it "generates a Ref" do
+        expect(output).to eq(
+          {
+            "Fn::Join" => [
+              "", [
+                "prefix-",
+                { "Ref" => "AWS::StackName" },
+                "-suffix"
+              ]
+            ]
+          }
+        )
+      end
+
+    end
+
     context "with a resource name and attribute" do
 
       let(:input) { "{{loadBalancer.cname}}" }
