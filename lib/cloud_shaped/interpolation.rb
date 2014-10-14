@@ -26,7 +26,7 @@ module CloudShaped
 
     def interpolate_line(line, delimiters)
       open, close = delimiters
-      tokens = line.split(/(#{Regexp.quote(open)}[\w:]+#{Regexp.quote(close)})/)
+      tokens = line.split(/(#{Regexp.quote(open)}[\w:.]+#{Regexp.quote(close)})/)
       tokens.reject!(&:empty?)
       tokens.map do |token|
         if token =~ /^#{Regexp.quote(open)}([\w:]+)(?:\.(\w+))?#{Regexp.quote(close)}$/

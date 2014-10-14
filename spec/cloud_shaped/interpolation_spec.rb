@@ -70,14 +70,16 @@ describe CloudShaped::Interpolation do
 
     context "with a resource name and attribute" do
 
-      let(:input) { "{{loadBalancer.cname}}" }
+      let(:input) { "prefix-{{loadBalancer.cname}}-suffix" }
 
       it "generates an Fn::GetAtt" do
         expect(output).to eq(
           {
             "Fn::Join" => [
               "", [
+                "prefix-",
                 { "Fn::GetAtt" => ["loadBalancer", "cname"] },
+                "-suffix"
               ]
             ]
           }
