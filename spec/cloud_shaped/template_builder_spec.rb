@@ -21,6 +21,15 @@ describe CloudShaped::TemplateBuilder do
 
   end
 
+  describe "#description=" do
+
+    it "sets the Description"  do
+      template_builder.description = "My awesome template"
+      expect(template["Description"]).to eq("My awesome template")
+    end
+
+  end
+
   describe "#def_resource" do
 
     it "defines a Resource" do

@@ -19,6 +19,7 @@ module CloudShaped
     def template
       {}.tap do |template|
         template["AWSTemplateFormatVersion"] = '2010-09-09'
+        template["Description"] = description if description
         template["Metadata"] = metadata unless metadata.empty?
         template["Parameters"] = parameters unless parameters.empty?
         template["Mappings"] = mappings unless mappings.empty?
@@ -84,6 +85,7 @@ module CloudShaped
       outputs[name] = output(value)
     end
 
+    attr_accessor :description
     attr_reader :metadata
 
     protected
