@@ -6,7 +6,7 @@ module CloudShaped
   #
   class TemplateBuilder
 
-    def initialize(settings = {})
+    def initialize
       @metadata = {}
       @parameters = {}
       @mappings = {}
