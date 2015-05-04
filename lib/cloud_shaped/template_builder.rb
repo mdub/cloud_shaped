@@ -7,6 +7,7 @@ module CloudShaped
   class TemplateBuilder
 
     def initialize(settings = {})
+      @metadata = {}
       @parameters = {}
       @mappings = {}
       @resources = {}
@@ -18,6 +19,7 @@ module CloudShaped
     def template
       {}.tap do |template|
         template["AWSTemplateFormatVersion"] = '2010-09-09'
+        template["Metadata"] = metadata unless metadata.empty?
         template["Parameters"] = parameters unless parameters.empty?
         template["Mappings"] = mappings unless mappings.empty?
         template["Resources"] = resources
@@ -81,6 +83,8 @@ module CloudShaped
     def def_output(name, value)
       outputs[name] = output(value)
     end
+
+    attr_reader :metadata
 
     protected
 

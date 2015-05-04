@@ -160,4 +160,17 @@ describe CloudShaped::TemplateBuilder do
 
   end
 
+  describe "#metadata" do
+
+    it "allows attachment of stack metadata" do
+      template_builder.metadata["Foo"] = { "bar" => "baz" }
+      expected_metadata = {
+        "Foo" => {
+          "bar" => "baz"
+        }
+      }
+      expect(template["Metadata"]).to eq(expected_metadata)
+    end
+
+  end
 end
