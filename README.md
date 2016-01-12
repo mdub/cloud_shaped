@@ -79,6 +79,38 @@ Typically, the "type" argument will be a string specifying a CloudFormation reso
 
     t.def_resource "adminEmail", :email_topic, "mdub@example.com"
 
+### Text interpolation
+
+Sometimes it's necessary to embed files or even scripts in a CloudFormation template, but include references to stack parameters or resources; the resulting mess of "Fn::Join" and "Fn::GetAtt" can be hard to follow.
+
+CloudShaped's `interpolate` function makes it easier; it detects references of the form `{{RESOURCE}}` or `{{RESOURCE.ATTRIBUTE}}` in a string, and generates "Ref" and "Fn::GetAtt" as appropriate, e.g.
+
+```ruby
+script = <<-'BASH'
+#!/bin/sh
+... stuff ...
+/usr/local/bin/cfn-signal -e 0 \
+  --stack {{AWS::StackName}} --region {{AWS::Region}} \
+  --resource thisHereInstance
+BASH
+
+t.interpolate(script) #=> ...
+{
+  "Fn::Join"=>
+  [
+    "",
+    ["#!/bin/sh\n",
+      "... stuff ...\n",
+      "/usr/local/bin/cfn-signal -e 0 \\\n",
+      "  --stack ", {"Ref"=>"AWS::StackName"},
+      " --region ", {"Ref"=>"AWS::Region"},
+      " \\\n",
+      "  --resource thisHereInstance\n"
+    ]
+  ]
+}
+```
+
 ## Full documentation
 
 For more info on the DSL, see:
