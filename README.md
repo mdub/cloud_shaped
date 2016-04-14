@@ -99,19 +99,26 @@ BASH
 
 t.interpolate(script) #=> ...
 {
-  "Fn::Join"=>
+  "Fn::Join" =>
   [
-    "",
+    "\n",
     [
-      "#!/bin/sh\n",
-      "... stuff ...\n",
-      "/usr/local/bin/cfn-signal -e 0 \\\n",
-      "  --stack ",
-      {"Ref"=>"AWS::StackName"},
-      " --region ",
-      {"Ref"=>"AWS::Region"},
-      " \\\n",
-      "  --resource thisHereInstance\n"
+      "#!/bin/sh",
+      "... stuff ...",
+      "/usr/local/bin/cfn-signal -e 0 \\",
+      {
+        "Fn::Join" => [
+          "",
+          [
+            "  --stack ",
+            { "Ref" => "AWS::StackName" },
+            " --region ",
+            { "Ref" => "AWS::Region" },
+            " \\"
+          ]
+        ]
+      },
+      "  --resource thisHereInstance"
     ]
   ]
 }
