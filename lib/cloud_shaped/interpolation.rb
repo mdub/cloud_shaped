@@ -16,7 +16,7 @@ module CloudShaped
     # @param delimiters [Array] opening and closing delimter
     #
     def interpolate(string, delimiters = DEFAULT_DELIMITERS)
-      interpolated_lines = string.split("\n").map do |line|
+      interpolated_lines = string.split("\n", -1).map do |line|
         interpolate_line(line, delimiters)
       end
       join("\n", interpolated_lines)

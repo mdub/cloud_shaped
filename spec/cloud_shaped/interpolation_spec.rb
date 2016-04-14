@@ -30,7 +30,7 @@ describe CloudShaped::Interpolation do
 
     context "with multiple lines" do
 
-      let(:input) { "line1\nline2\nline3" }
+      let(:input) { "line1\nline2\nline3\n" }
 
       it "uses Fn::Join to join lines" do
         expect(output).to eq(
@@ -38,7 +38,8 @@ describe CloudShaped::Interpolation do
             "\n", [
               "line1",
               "line2",
-              "line3"
+              "line3",
+              ""
             ]
           ]
         )
@@ -125,7 +126,8 @@ describe CloudShaped::Interpolation do
                     "-suffix"
                   ]
                 ]
-              }
+              },
+              ""
             ]
           ]
         )
