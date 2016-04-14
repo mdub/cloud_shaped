@@ -1,5 +1,8 @@
 # CloudShaped
 
+[![Gem Version](https://badge.fury.io/rb/cloud_shaped.png)](http://badge.fury.io/rb/cloud_shaped)
+[![Build Status](https://secure.travis-ci.org/mdub/cloud_shaped.png?branch=master)](http://travis-ci.org/mdub/cloud_shaped)
+
 Infrastructure as <del>data</del> code.
 
 [CloudFormation][cloud_formation] provides a nice way to provision AWS resources in a declarative way.  But, programming in JSON can be painful.
