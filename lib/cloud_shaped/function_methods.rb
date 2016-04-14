@@ -18,6 +18,46 @@ module CloudShaped
       }
     end
 
+    # Syntax sugar for Fn::And.
+    #
+    def fn_and(*conditions)
+      {
+        "Fn::And" => conditions
+      }
+    end
+
+    # Syntax sugar for Fn::Equals.
+    #
+    def fn_equals(v1, v2)
+      {
+        "Fn::Equals" => [v1, v2]
+      }
+    end
+
+    # Syntax sugar for Fn::If.
+    #
+    def fn_if(condition, when_true, when_false)
+      {
+        "Fn::If" => [condition, when_true, when_false]
+      }
+    end
+
+    # Syntax sugar for Fn::Not.
+    #
+    def fn_not(cond)
+      {
+        "Fn::Not" => [cond]
+      }
+    end
+
+    # Syntax sugar for Fn::Or.
+    #
+    def fn_or(*conditions)
+      {
+        "Fn::Or" => conditions
+      }
+    end
+
   end
 
 end
