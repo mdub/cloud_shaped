@@ -169,6 +169,22 @@ describe CloudShaped::TemplateBuilder do
 
   end
 
+  describe "#def_condition" do
+
+    let(:condition_body) do
+      { "Fn::Equals" => [{ "Ref" => "Env" }, "prod"] }
+    end
+
+    before do
+      template_builder.def_condition("InProd", condition_body)
+    end
+
+    it "defines a Condition" do
+      expect(template["Conditions"]).to eq("InProd" => condition_body)
+    end
+
+  end
+
   describe "#metadata" do
 
     it "allows attachment of stack metadata" do

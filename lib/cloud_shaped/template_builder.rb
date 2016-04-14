@@ -10,6 +10,7 @@ module CloudShaped
       @metadata = {}
       @parameters = {}
       @mappings = {}
+      @conditions = {}
       @resources = {}
       @outputs = {}
     end
@@ -23,6 +24,7 @@ module CloudShaped
         template["Metadata"] = metadata unless metadata.empty?
         template["Parameters"] = parameters unless parameters.empty?
         template["Mappings"] = mappings unless mappings.empty?
+        template["Conditions"] = conditions unless conditions.empty?
         template["Resources"] = resources
         template["Outputs"] = outputs unless outputs.empty?
       end
@@ -59,6 +61,18 @@ module CloudShaped
       mappings[name] = mapping
     end
 
+    # Declares a Condition.
+    #
+    # @param name [String] the condition name
+    # @param condition [Hash] the condition body
+    #
+    # @example
+    #   def_mapping "inProd", fn_equals(ref("Env"), "prod")
+    #
+    def def_condition(name, body)
+      conditions[name] = body
+    end
+
     # Declares a Resource.
     #
     # @param name [String] the resource name
@@ -93,6 +107,7 @@ module CloudShaped
 
     attr_reader :parameters
     attr_reader :mappings
+    attr_reader :conditions
     attr_reader :resources
     attr_reader :outputs
 
