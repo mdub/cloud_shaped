@@ -1,7 +1,7 @@
 class Symbol
 
   def camelate
-    to_s.split('_').map(&:capitalize).join
+    to_s.split("_").map(&:capitalize).join
   end
 
 end

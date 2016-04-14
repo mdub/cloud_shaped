@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-require 'cloud_shaped/function_methods'
+require "cloud_shaped/function_methods"
 
 describe CloudShaped::FunctionMethods do
 
@@ -11,9 +11,7 @@ describe CloudShaped::FunctionMethods do
     it "is sugar for Fn::Base64" do
       output = fn_base64("stuff")
       expect(output).to eq(
-        {
-          "Fn::Base64" => "stuff"
-        }
+        "Fn::Base64" => "stuff"
       )
     end
 
@@ -25,9 +23,7 @@ describe CloudShaped::FunctionMethods do
       lines = %w(a b c)
       output = fn_join(",", lines)
       expect(output).to eq(
-        {
-          "Fn::Join" => [",", lines]
-        }
+        "Fn::Join" => [",", lines]
       )
     end
 

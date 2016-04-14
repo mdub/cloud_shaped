@@ -1,7 +1,7 @@
 #! /usr/bin/env ruby
 
-require 'cloud_shaped'
-require 'yaml'
+require "cloud_shaped"
+require "yaml"
 
 class BucketMaker
 

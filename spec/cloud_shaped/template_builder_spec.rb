@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-require 'cloud_shaped/template_builder'
+require "cloud_shaped/template_builder"
 
 describe CloudShaped::TemplateBuilder do
 
@@ -13,7 +13,7 @@ describe CloudShaped::TemplateBuilder do
     it "returns a CloudFormation template" do
 
       expect(template).to eq(
-        "AWSTemplateFormatVersion" => '2010-09-09',
+        "AWSTemplateFormatVersion" => "2010-09-09",
         "Resources" => {}
       )
 
@@ -23,7 +23,7 @@ describe CloudShaped::TemplateBuilder do
 
   describe "#description=" do
 
-    it "sets the Description"  do
+    it "sets the Description" do
       template_builder.description = "My awesome template"
       expect(template["Description"]).to eq("My awesome template")
     end
@@ -39,7 +39,7 @@ describe CloudShaped::TemplateBuilder do
       expect(template["Resources"]).to eq(
         "fooBar" => {
           "Type" => "AWS::Foo::Bar",
-          "Properties" => {"foo" => "bar"}
+          "Properties" => { "foo" => "bar" }
         }
       )
 
@@ -60,7 +60,7 @@ describe CloudShaped::TemplateBuilder do
         expect(template["Resources"]).to eq(
           "fooBar" => {
             "Type" => "AWS::Fnord::Fnord",
-            "Properties" => {"Size" => "3"}
+            "Properties" => { "Size" => "3" }
           }
         )
 
@@ -71,7 +71,7 @@ describe CloudShaped::TemplateBuilder do
     context "when resource macro-method returns nil" do
 
       before do
-        def template_builder.nada(*args)
+        def template_builder.nada(*_args)
           nil
         end
       end
@@ -130,11 +130,11 @@ describe CloudShaped::TemplateBuilder do
 
       let(:region_map) do
         {
-          "us-east-1"      => { "32" => "ami-6411e20d"},
-          "us-west-1"      => { "32" => "ami-c9c7978c"},
-          "eu-west-1"      => { "32" => "ami-37c2f643"},
-          "ap-southeast-1" => { "32" => "ami-66f28c34"},
-          "ap-northeast-1" => { "32" => "ami-9c03a89d"}
+          "us-east-1"      => { "32" => "ami-6411e20d" },
+          "us-west-1"      => { "32" => "ami-c9c7978c" },
+          "eu-west-1"      => { "32" => "ami-37c2f643" },
+          "ap-southeast-1" => { "32" => "ami-66f28c34" },
+          "ap-northeast-1" => { "32" => "ami-9c03a89d" }
         }
       end
 

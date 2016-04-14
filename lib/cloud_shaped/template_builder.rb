@@ -1,4 +1,4 @@
-require 'cloud_shaped/dsl'
+require "cloud_shaped/dsl"
 
 module CloudShaped
 
@@ -18,7 +18,7 @@ module CloudShaped
     #
     def template
       {}.tap do |template|
-        template["AWSTemplateFormatVersion"] = '2010-09-09'
+        template["AWSTemplateFormatVersion"] = "2010-09-09"
         template["Description"] = description if description
         template["Metadata"] = metadata unless metadata.empty?
         template["Parameters"] = parameters unless parameters.empty?
@@ -66,9 +66,9 @@ module CloudShaped
     #
     def def_resource(name, type, *args, &block)
       definition = if type.is_a?(Symbol)
-        send(type, *args, &block)
-      else
-        resource(type, *args, &block)
+                     send(type, *args, &block)
+                   else
+                     resource(type, *args, &block)
       end
       resources[name] = definition if definition
     end

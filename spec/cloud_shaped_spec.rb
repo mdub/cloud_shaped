@@ -1,4 +1,4 @@
-require 'spec_helper'
+require "spec_helper"
 
 require "cloud_shaped"
 
@@ -20,7 +20,7 @@ describe CloudShaped do
 
       it "declares a template using instance_eval" do
         expect(template).to eq(
-          "AWSTemplateFormatVersion" => '2010-09-09',
+          "AWSTemplateFormatVersion" => "2010-09-09",
           "Parameters" => {
             "appName" => {
               "Type" => "String"
@@ -60,7 +60,7 @@ describe CloudShaped do
 
       it "declares a template without instance_eval" do
         expect(template).to eq(
-          "AWSTemplateFormatVersion" => '2010-09-09',
+          "AWSTemplateFormatVersion" => "2010-09-09",
           "Parameters" => {
             "appName" => {
               "Type" => "String"

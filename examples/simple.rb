@@ -1,13 +1,13 @@
 #! /usr/bin/env ruby
 
-require 'cloud_shaped'
-require 'yaml'
+require "cloud_shaped"
+require "yaml"
 
 template = CloudShaped.template do
 
   self.description = "Make a bucket"
 
-  self.metadata["foo"] = {
+  metadata["foo"] = {
     "bar" => "baz"
   }
 

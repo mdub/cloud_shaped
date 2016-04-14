@@ -1,15 +1,14 @@
-# coding: utf-8
-lib = File.expand_path('../lib', __FILE__)
+lib = File.expand_path("../lib", __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'cloud_shaped/version'
+require "cloud_shaped/version"
 
 Gem::Specification.new do |gem|
 
   gem.name          = "cloud_shaped"
   gem.version       = CloudShaped::VERSION
 
-  gem.summary       = %q{DSL for AWS CloudFormation templates.}
-  gem.description   = %q{CloudShaped makes it easier to generate CloudFormation templates, using a Builder-like DSL.}
+  gem.summary       = "DSL for AWS CloudFormation templates."
+  gem.description   = "CloudShaped makes it easier to generate CloudFormation templates, using a Builder-like DSL."
 
   gem.authors       = ["Mike Williams"]
   gem.email         = ["mdub@dogbiscuit.org"]

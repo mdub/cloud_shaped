@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-require 'cloud_shaped/sns_methods'
+require "cloud_shaped/sns_methods"
 
 describe CloudShaped::SnsMethods do
 
@@ -70,4 +70,3 @@ describe CloudShaped::SnsMethods do
 
   end
 end
-

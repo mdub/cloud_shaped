@@ -20,7 +20,7 @@ module CloudShaped
     def resource(type, properties = {}, attributes = {})
       properties = properties.camelate_keys
       yield properties, attributes if block_given?
-      properties.select! { |k,v| v != nil }
+      properties.select! { |_k, v| !v.nil? }
       attributes.merge(
         "Type" => type,
         "Properties" => properties
@@ -77,7 +77,7 @@ module CloudShaped
     #   tags("application" => "atlas", "version" => "1.2.3")
     #
     def tags(tag_map, extra_properties = {})
-      tag_map.map { |k,v| tag(k,v, extra_properties) }
+      tag_map.map { |k, v| tag(k, v, extra_properties) }
     end
 
     # Returns a resource reference.

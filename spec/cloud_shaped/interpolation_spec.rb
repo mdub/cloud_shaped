@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-require 'cloud_shaped/interpolation'
+require "cloud_shaped/interpolation"
 
 describe CloudShaped::Interpolation do
 
@@ -16,15 +16,13 @@ describe CloudShaped::Interpolation do
 
       it "generates a Ref" do
         expect(output).to eq(
-          {
-            "Fn::Join" => [
-              "", [
-                "prefix-",
-                { "Ref" => "myResource" },
-                "-suffix"
-              ]
+          "Fn::Join" => [
+            "", [
+              "prefix-",
+              { "Ref" => "myResource" },
+              "-suffix"
             ]
-          }
+          ]
         )
       end
 
@@ -36,13 +34,11 @@ describe CloudShaped::Interpolation do
 
       it "generates a Ref" do
         expect(output).to eq(
-          {
-            "Fn::Join" => [
-              "", [
-                { "Ref" => "AWS::StackName" }
-              ]
+          "Fn::Join" => [
+            "", [
+              { "Ref" => "AWS::StackName" }
             ]
-          }
+          ]
         )
       end
 
@@ -54,15 +50,13 @@ describe CloudShaped::Interpolation do
 
       it "generates a Ref" do
         expect(output).to eq(
-          {
-            "Fn::Join" => [
-              "", [
-                "prefix-",
-                { "Ref" => "AWS::StackName" },
-                "-suffix"
-              ]
+          "Fn::Join" => [
+            "", [
+              "prefix-",
+              { "Ref" => "AWS::StackName" },
+              "-suffix"
             ]
-          }
+          ]
         )
       end
 
@@ -74,15 +68,13 @@ describe CloudShaped::Interpolation do
 
       it "generates an Fn::GetAtt" do
         expect(output).to eq(
-          {
-            "Fn::Join" => [
-              "", [
-                "prefix-",
-                { "Fn::GetAtt" => ["loadBalancer", "cname"] },
-                "-suffix"
-              ]
+          "Fn::Join" => [
+            "", [
+              "prefix-",
+              { "Fn::GetAtt" => ["loadBalancer", "cname"] },
+              "-suffix"
             ]
-          }
+          ]
         )
       end
 
@@ -91,14 +83,12 @@ describe CloudShaped::Interpolation do
     it "supports alternate delimiters" do
       double_square_brackets = ["[[", "]]"]
       expect(interpolate("[[foo]]", double_square_brackets)).to eq(
-          {
-            "Fn::Join" => [
-              "", [
-                { "Ref" => "foo" }
-              ]
-            ]
-          }
-        )
+        "Fn::Join" => [
+          "", [
+            { "Ref" => "foo" }
+          ]
+        ]
+      )
     end
 
     context "with a mix of stuff" do
@@ -107,17 +97,15 @@ describe CloudShaped::Interpolation do
 
       it "all just works" do
         expect(output).to eq(
-          {
-            "Fn::Join" => [
-              "", [
-                "#!/bin/foo\n",
-                "\n",
-                "prefix-",
-                { "Ref" => "myResource" },
-                "-suffix\n"
-              ]
+          "Fn::Join" => [
+            "", [
+              "#!/bin/foo\n",
+              "\n",
+              "prefix-",
+              { "Ref" => "myResource" },
+              "-suffix\n"
             ]
-          }
+          ]
         )
       end
 

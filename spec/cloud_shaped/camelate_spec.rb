@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-require 'cloud_shaped/camelate'
+require "cloud_shaped/camelate"
 
 describe String, "#camelate" do
   it "is a no-op" do

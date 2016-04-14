@@ -1,6 +1,6 @@
-require 'spec_helper'
+require "spec_helper"
 
-require 'cloud_shaped/core_methods'
+require "cloud_shaped/core_methods"
 
 describe CloudShaped::CoreMethods do
 
@@ -58,7 +58,7 @@ describe CloudShaped::CoreMethods do
     context "with a block that sets attributes" do
 
       let(:result) do
-        resource("AWS::Thing") do |props, attrs|
+        resource("AWS::Thing") do |_props, attrs|
           attrs["DeletionPolicy"] = "Retain"
         end
       end
@@ -86,7 +86,7 @@ describe CloudShaped::CoreMethods do
     context "with no type" do
 
       it "defaults to 'String'" do
-        expect(parameter()).to eq(
+        expect(parameter).to eq(
           "Type" => "String"
         )
       end
