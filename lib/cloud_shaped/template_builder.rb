@@ -42,6 +42,7 @@ module CloudShaped
     #   def_parameter "minInstances", :type => "Number"
     #
     def def_parameter(name, options = {})
+      yield options if block_given?
       parameters[name] = parameter(options)
     end
 
