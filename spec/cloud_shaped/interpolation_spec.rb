@@ -52,7 +52,7 @@ describe CloudShaped::Interpolation do
 
       it "generates a Ref" do
         expect(output).to eq(
-          { "Ref" => "AWS::StackName" }
+          "Ref" => "AWS::StackName"
         )
       end
 

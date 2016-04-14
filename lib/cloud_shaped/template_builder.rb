@@ -84,7 +84,7 @@ module CloudShaped
                      send(type, *args, &block)
                    else
                      resource(type, *args, &block)
-      end
+                   end
       resources[name] = definition if definition
     end
 
