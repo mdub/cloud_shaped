@@ -28,17 +28,31 @@ describe CloudShaped::Interpolation do
 
     end
 
+    context "with multiple lines" do
+
+      let(:input) { "line1\nline2\nline3" }
+
+      it "uses Fn::Join to join lines" do
+        expect(output).to eq(
+          "Fn::Join" => [
+            "\n", [
+              "line1",
+              "line2",
+              "line3"
+            ]
+          ]
+        )
+      end
+
+    end
+
     context "with a built-in CloudFormation resource" do
 
       let(:input) { "{{AWS::StackName}}" }
 
       it "generates a Ref" do
         expect(output).to eq(
-          "Fn::Join" => [
-            "", [
-              { "Ref" => "AWS::StackName" }
-            ]
-          ]
+          { "Ref" => "AWS::StackName" }
         )
       end
 
@@ -82,10 +96,12 @@ describe CloudShaped::Interpolation do
 
     it "supports alternate delimiters" do
       double_square_brackets = ["[[", "]]"]
-      expect(interpolate("[[foo]]", double_square_brackets)).to eq(
+      expect(interpolate("blah[[foo]]blah", double_square_brackets)).to eq(
         "Fn::Join" => [
           "", [
-            { "Ref" => "foo" }
+            "blah",
+            { "Ref" => "foo" },
+            "blah"
           ]
         ]
       )
@@ -98,12 +114,18 @@ describe CloudShaped::Interpolation do
       it "all just works" do
         expect(output).to eq(
           "Fn::Join" => [
-            "", [
-              "#!/bin/foo\n",
-              "\n",
-              "prefix-",
-              { "Ref" => "myResource" },
-              "-suffix\n"
+            "\n", [
+              "#!/bin/foo",
+              "",
+              {
+                "Fn::Join" => [
+                  "", [
+                    "prefix-",
+                    { "Ref" => "myResource" },
+                    "-suffix"
+                  ]
+                ]
+              }
             ]
           ]
         )

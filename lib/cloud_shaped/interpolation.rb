@@ -16,10 +16,10 @@ module CloudShaped
     # @param delimiters [Array] opening and closing delimter
     #
     def interpolate(string, delimiters = DEFAULT_DELIMITERS)
-      fragments = string.lines.map do |line|
+      interpolated_lines = string.split("\n").map do |line|
         interpolate_line(line, delimiters)
-      end.flatten
-      fn_join("", fragments)
+      end
+      join("\n", interpolated_lines)
     end
 
     private
@@ -28,13 +28,20 @@ module CloudShaped
       open, close = delimiters
       tokens = line.split(/(#{Regexp.quote(open)}[\w:.]+#{Regexp.quote(close)})/)
       tokens.reject!(&:empty?)
-      tokens.map do |token|
+      fragments = tokens.map do |token|
         if token =~ /^#{Regexp.quote(open)}([\w:]+)(?:\.(\w+))?#{Regexp.quote(close)}$/
           ref(Regexp.last_match(1), Regexp.last_match(2))
         else
           token
         end
       end
+      join("", fragments)
+    end
+
+    def join(delimiter, parts)
+      return "" if parts.empty?
+      return parts.first if parts.one?
+      fn_join(delimiter, parts)
     end
 
   end
