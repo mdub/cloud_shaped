@@ -2,6 +2,15 @@ Eval:
   Exclude:
     - "Rakefile"
 
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+
+Layout/EmptyLinesAroundClassBody:
+  EnforcedStyle: empty_lines
+
+Layout/EmptyLinesAroundModuleBody:
+  Enabled: false
+
 Metrics/AbcSize:
   Enabled: false
 
@@ -20,17 +29,7 @@ Style/Documentation:
   Exclude:
     - "spec/**/*"
 
-Style/EmptyLinesAroundBlockBody:
-  Enabled: false
-
-Style/EmptyLinesAroundClassBody:
-  EnforcedStyle: empty_lines
-
-Style/EmptyLinesAroundModuleBody:
-  Enabled: false
-
 Style/Encoding:
-  EnforcedStyle: when_needed
   Enabled: true
 
 Style/FileName:
