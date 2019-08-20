@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "cloud_shaped/core_methods"
 require "cloud_shaped/function_methods"
 require "cloud_shaped/interpolation"
@@ -11,7 +13,7 @@ module CloudShaped
     include Interpolation
     include SnsMethods
 
-    extend self
+    module_function
 
   end
 end

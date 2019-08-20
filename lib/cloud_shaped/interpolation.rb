@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "cloud_shaped/core_methods"
 require "cloud_shaped/function_methods"
 
@@ -41,6 +43,7 @@ module CloudShaped
     def join(delimiter, parts)
       return "" if parts.empty?
       return parts.first if parts.one?
+
       fn_join(delimiter, parts)
     end
 

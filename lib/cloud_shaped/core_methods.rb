@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "cloud_shaped/camelate"
 
 module CloudShaped
@@ -20,7 +22,7 @@ module CloudShaped
     def resource(type, properties = {}, attributes = {})
       properties = properties.camelate_keys
       yield properties, attributes if block_given?
-      properties.select! { |_k, v| !v.nil? }
+      properties.reject! { |_k, v| v.nil? }
       attributes.merge(
         "Type" => type,
         "Properties" => properties

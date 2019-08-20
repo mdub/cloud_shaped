@@ -20,6 +20,10 @@ Metrics/LineLength:
 Metrics/MethodLength:
   Max: 30
 
+Naming/FileName:
+  Exclude:
+    - "bin/*"
+
 Style/ClassAndModuleChildren:
   EnforcedStyle: nested
   Exclude:
@@ -31,10 +35,6 @@ Style/Documentation:
 
 Style/Encoding:
   Enabled: true
-
-Style/FileName:
-  Exclude:
-    - "bin/*"
 
 Style/HashSyntax:
   EnforcedStyle: hash_rockets

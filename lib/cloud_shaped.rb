@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "cloud_shaped/dsl"
 require "cloud_shaped/template_builder"
 require "cloud_shaped/version"

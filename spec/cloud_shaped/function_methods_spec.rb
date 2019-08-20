@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require "spec_helper"
 
 require "cloud_shaped/function_methods"
@@ -20,7 +22,7 @@ describe CloudShaped::FunctionMethods do
   describe "#fn_join" do
 
     it "is sugar for Fn::Join" do
-      lines = %w(a b c)
+      lines = %w[a b c]
       output = fn_join(",", lines)
       expect(output).to eq(
         "Fn::Join" => [",", lines]
